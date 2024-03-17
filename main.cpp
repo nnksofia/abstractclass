@@ -1,51 +1,28 @@
+#include <fstream>
+#include "header.h"
 #include <iostream>
 
 using namespace std;
 
-class Base {
-public:
-    virtual double sum(int x) = 0;
-};
-
-class Progression : public Base {
-private:
-    double a;
-    double diff;
-public:
-    Progression(double _a, double _diff) {
-        a = _a;
-        diff = _diff;
-    }
-
-    double sum(int n) {
-        double sum = (n + 1) * (a + (a + n * diff)) / 2;
-        return sum;
-    }
-};
-
-class Vector : public Base {
-private:
-    double *v;
-public:
-    Vector(double *_v) {
-        v = _v;
-    }
-
-    double sum(int j) {
-        int sum = 0;
-        for (int i = 0; i < j; i++) {
-            sum = sum + v[i];
-        }
-        return sum;
-    }
-};
-
 int main() {
-
     Base *base[3];
 
-    Progression progression(1, 3);
-    double v[3] = {1, 2, 3};
+    ifstream inputFile("t.txt");
+    if (!inputFile) {
+        cerr << "unable to open file!" << endl;
+        return 1;
+    }
+
+    double progressionA, progressionDiff;
+    inputFile >> progressionA >> progressionDiff;
+
+    Progression progression(progressionA, progressionDiff);
+
+    double v[3];
+    for (int i = 0; i < 3; ++i) {
+        inputFile >> v[i];
+    }
+
     Vector vector(v);
 
     base[0] = &progression;
@@ -53,6 +30,17 @@ int main() {
 
     base[2] = new Progression(2, 1);
 
-    cout << base[0]->sum(2) << endl;
+    int num1 = 0, num2 = 0;
+    cout << "enter num of progression's numbers to sum" << endl;
+    cin >> num1;
+
+    cout << "enter num of vector's numbers to sum" << endl;
+    cin >> num2;
+
+    cout << "progression's sum: " << base[0]->sum(num1) << endl;
+    cout << "vector's sum: " << base[1]->sum(num2) << endl;
+
+    inputFile.close();
+
     return 0;
 }
