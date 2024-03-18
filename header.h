@@ -21,3 +21,8 @@ public:
 
     double sum(int);
 };
+
+
+void testProgression();
+
+void testVector();

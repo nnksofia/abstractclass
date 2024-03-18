@@ -5,7 +5,11 @@
 using namespace std;
 
 int main() {
-    Base *base[3];
+    testProgression();
+    testVector();
+    cout << "all tests passed successfully!" << endl;
+
+    Base *base[2];
 
     ifstream inputFile("t.txt");
     if (!inputFile) {
@@ -28,7 +32,7 @@ int main() {
     base[0] = &progression;
     base[1] = &vector;
 
-    base[2] = new Progression(2, 1);
+//    base[2] = new Progression(2, 1);
 
     int num1 = 0, num2 = 0;
     cout << "enter num of progression's numbers to sum" << endl;
